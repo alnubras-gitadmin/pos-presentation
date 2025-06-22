@@ -119,6 +119,7 @@ export default function SlideWrapper({
                 </span>
               </div>
               
+              <Image src={"/logo.jpeg"} alt='logo' height={200} width={200} className='h-10 w-auto object-contain'/>
               <div className="flex items-center space-x-6">
                 <span className="text-xs text-slate-400 font-mono tracking-wider">
                   {index + 1} / {total}
