@@ -119,7 +119,6 @@ export default function SlideWrapper({
                 </span>
               </div>
 
-              // brand name
               <h1 className='text-2xl font-serif font-semibold'>Al Nubras</h1>
               <div className="flex items-center space-x-6">
                 <span className="text-xs text-slate-400 font-mono tracking-wider">
