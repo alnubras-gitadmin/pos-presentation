@@ -1,0 +1,28 @@
+export const title = "🔐 POS Authentication Flow Overview";
+
+# 🔐 POS Authentication Flow Overview
+
+
+<video
+  src="/authFlow.mp4"
+  playsInline
+  loop
+  controls
+  width={960}
+  height={540}
+  style={{ objectFit: 'cover' }}
+  className="rounded-xl border shadow-md mx-auto my-6"
+/>
+
+To ensure secure access to the POS system, the authentication flow starts by checking if a user is already logged in.  
+If not, they're redirected to a centralized login portal **(login.alnubras.co)**.  
+After entering credentials, an additional layer of security via **2FA (OTP or TOTP)** is enforced.
+
+Once verified, the user is redirected to the main POS dashboard **(pos.alnubras.co)** where their actions are logged.  
+All backend activity is protected by a **middleware layer** that verifies and logs user identity for every operation.
+
+**This flow ensures:**
+
+- ✅ Only authorized users access the system  
+- 🧾 All operations are traceable to specific users  
+- 🛡️ Compliance with modern security and audit standards

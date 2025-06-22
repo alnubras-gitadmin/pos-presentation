@@ -1,0 +1,267 @@
+export const title = "🔄 Comprehensive POS Terminal Workflow";
+
+# Comprehensive POS Terminal Workflow
+
+<Callout variant="default">
+  A detailed, step-by-step breakdown of the POS system, highlighting every key
+  feature, validation, automation, and enhancement compared to manual entry
+  systems.
+</Callout>
+
+<Separator className="my-6" />
+<Card className="mb-8">
+  <CardHeader>
+    <CardTitle className="text-2xl">Step 1: Customer Selection & Validation</CardTitle>
+  </CardHeader>
+  <CardContent>
+    <Image
+      src="/customer-selection.png"
+      alt="Customer Selection"
+      width={960}
+      height={540}
+      className="border border-gray-300 mx-auto mb-6"
+    />
+    The POS terminal begins its operation with customer identification. The user can quickly search through an existing database of customers using either the customer's name or their phone number. As soon as the user starts typing, an instant search occurs in real-time, pulling matching records from the backend. If no customer is found, the POS clearly prompts the user to add a new customer.
+
+    When creating a new customer, the system provides a quick creation form to capture essential details like name, phone, email, and membership status. Upon submission, this information is validated and stored immediately in IndexedDB on the frontend for seamless offline capability, then synchronized automatically with the backend database. This ensures that customer data is always accurate, consistent, and available even during temporary connectivity disruptions.
+
+    If no customer is selected, the POS disables subsequent actions like product addition or payment, ensuring strict adherence to customer-first policies.
+
+  </CardContent>
+</Card>
+
+
+<Card className="mb-4">
+  <CardHeader>
+    <CardTitle className="text-2xl">🛒 Product Selection and Management</CardTitle>
+  </CardHeader>
+  <CardContent>
+      <Image
+      src="/ready-made.png"
+      alt="Ready-made products UI flow"
+      width={960}
+      height={540}
+      className="border border-gray-300 mx-auto mb-6"
+    />
+     <h2 className="text-xl font-semibold mb-2">Step 2A: Ready-Made Products Selection</h2>
+    Ready-made products are displayed in a responsive grid layout grouped by categories. Selecting a product triggers an immediate SKU-based validation through backend checks. If the SKU matches a known catalog item, the POS seamlessly adds or updates the item in the cart, intelligently merging quantities to simplify the order review.
+
+    If a mismatch occurs, perhaps due to a discontinued item or incorrect SKU, the system immediately alerts the user with a clear notification, "Item not found in catalog," prompting corrective action without interrupting the user flow significantly.
+
+    Quantities can be easily adjusted through intuitive "+" and "-" buttons directly in the cart overview, with each change updating totals in real-time.
+
+
+    <h2 className="text-xl font-semibold mb-2 mt-6">Step 2B: Custom Products and Measurements</h2>
+    <Image
+      src="/custom-item.gif"
+      alt="Custom item UI flow"
+      width={960}
+      height={540}
+      className="border border-gray-300 mx-auto mb-6"
+    />
+    Custom products follow a dedicated, multi-step interaction. First, the user selects the desired product, triggering a modal dialog (`ModelSelectionDialog`) to choose from predefined custom models, each carrying specific pricing adjustments.
+
+    Once a model is chosen, the POS automatically proceeds to capture custom measurements through another detailed dialog (`MeasurementDialog`). Here, precise measurements such as front length, back length, shoulder width, sleeve length, neck, waist, chest, and additional notes are entered.
+
+    Validation logic is stringent; missing mandatory measurement fields will prompt clear, inline error messages, guiding the user towards accurate and complete data entry. Measurements are persisted immediately alongside the custom product details into the cart as a distinct line item, preventing quantity merges due to each custom item’s unique nature.
+
+  </CardContent>
+</Card>
+
+
+<Card className="mb-8">
+  <CardHeader>
+    <CardTitle className="text-2xl">Step 3: Cart Management and Transaction Integrity</CardTitle>
+  </CardHeader>
+  <CardContent>
+     <Image
+      src="/cart.png"
+      alt="Cart UI"
+      width={960}
+      height={540}
+      className="border border-gray-300 mx-auto mb-6"
+    />
+    The cart component provides comprehensive visibility over the current order state. Each item clearly displays its description, SKU, quantity, unit price, and subtotal. Ready-made items allow quantity adjustments, whereas custom items remain locked to a quantity of one, reflecting their unique measurement dependencies.
+
+    Users have the flexibility to remove items easily; the system handles this gracefully, updating totals instantly. Attempting to proceed with an empty cart triggers an immediate validation error, clearly communicated through an intuitive toast notification.
+
+ <Image
+      src="/held-orders.png"
+      alt="Held orders UI"
+      width={960}
+      height={540}
+      className="border border-gray-300 mx-auto mb-6"
+    />
+    Additionally, orders can be "held" for later completion, storing the current cart state securely in IndexedDB. Restoring held orders is seamless, allowing users to pick up precisely where they left off, preserving transactional continuity and ensuring no loss of sales opportunities.
+
+  </CardContent>
+</Card>
+
+
+<Card className="mb-8">
+  <CardHeader>
+    <CardTitle className="text-2xl">Step 4: Discounts, VAT, and Financial Controls</CardTitle>
+  </CardHeader>
+  <CardContent>
+   <Image
+      src="/disc.png"
+      alt="Discount UI"
+      width={960}
+      height={540}
+      className="border border-gray-300 mx-auto mb-6"
+    />
+    Discounts can be applied either manually or through validated promotional codes. Manual discount entries allow users fine-grained control but are subjected to rigorous validation—discounts exceeding the subtotal trigger immediate corrective notifications, safeguarding revenue integrity.
+
+ <Image
+      src="/totals.png"
+      alt="Amounts summary UI"
+      width={960}
+      height={540}
+      className="border border-gray-300 mx-auto mb-6"
+    />
+    VAT calculation is automatically managed by a toggle switch, instantly recalculating totals when toggled, ensuring pricing transparency and accuracy. Financial totals including subtotal, VAT, discounts, and grand total are clearly displayed in real-time, facilitating informed financial decisions at every stage of the transaction.
+
+  </CardContent>
+</Card>
+
+
+<Card className="mb-8">
+  <CardHeader>
+    <CardTitle className="text-2xl">Step 5: Payment, Terms & Delivery Priority</CardTitle>
+  </CardHeader>
+  <CardContent className="space-y-4 text-base leading-relaxed">
+   <Image
+      src="/payment.png"
+      alt="Payment coontrols UI"
+      width={960}
+      height={540}
+      className="border border-gray-300 mx-auto mb-6"
+    />
+    <p>
+      The payment interface is engineered for efficiency and precision. It presents a large, numeric keypad that supports both physical keyboard shortcuts and direct touch input. Users can enter the payment amount swiftly and confirm it using a dedicated "Enter" button. If necessary, the "Clear" function wipes the input instantly, allowing the sales rep to start fresh. This interface is highly optimized for physical retail counters where speed and clarity are critical.
+    </p>
+
+    <p>
+      Once the amount is entered, the system categorizes the transaction in one of three logical buckets: full payment, partial payment, or over-payment. In a full payment scenario, the backend immediately marks the order’s status as <code>completed</code>, and no balance remains. If the entered amount is less than the order total, the system marks the order as <code>partial</code>, calculates the remaining balance automatically, and expects follow-up payment. If the amount exceeds the total, the system calculates and displays the change due in real time, ensuring there's no ambiguity for either party.
+    </p>
+
+    <p>
+      Invalid payment attempts are caught early through front-end validation and backend re-verification. For example, entering a negative number, leaving the field empty, or inputting an amount greater than the total (without providing a justification) will trigger toast-based error messages, allowing the sales representative to correct the issue before proceeding.
+    </p>
+
+    <p>
+      After amount entry, the user selects the payment method from a dropdown. The system supports multiple modes—cash, Visa/MasterCard, and bank transfer (including UPI or IMPS)—with scope to expand in the future to wallet-based payments. This selected method is captured and stored alongside the order and payment transaction, ensuring traceability and ease of reconciliation in the accounting backend.
+    </p>
+
+    <p>
+      In the case of partial payments, the user can also specify a formal payment term—such as "Pay Later", "Due in 3 days", or "Due on Delivery". This term is used by the backend to compute a specific <strong>Due Date</strong>, which is then stored in the order record. This supports future billing reminders, follow-up notifications, and credit-based sales reports. Without needing manual calculation or reminders, the system enforces structured financial behavior aligned with business policy.
+    </p>
+
+    <p>
+      Simultaneously, the system prompts the sales rep to select a <strong>Priority Level</strong> for the order: Normal, Urgent, or Express. This directly influences the delivery scheduling logic. A "Normal" order sets the expected delivery ETA to 7–10 days, "Urgent" flags it for delivery within 3–5 days, and "Express" prioritizes it for same-day or next-day processing. The chosen priority automatically updates the <code>expectedDeliveryDate</code> field in the order, which is shown on the invoice and used internally for workflow and production planning.
+    </p>
+
+    <p>
+      Together, these mechanisms—strict input validation, categorized payment logic, due date calculations, and dynamic delivery expectations—create a robust financial and operational foundation for each sale. They eliminate guesswork, protect against human error, and ensure that the customer's payment experience is smooth, transparent, and secure.
+    </p>
+
+    <Callout className="mt-6">
+      Payment processing is no longer just a manual cash entry—it's a dynamic, rules-driven gateway to consistent billing, inventory coordination, and customer trust.
+    </Callout>
+  </CardContent>
+</Card>
+
+
+## 🚀 Order Submission, Backend Automation & Notifications
+
+<Card className="mb-8">
+  <CardHeader>
+    <CardTitle>Step 6: Order Submission & Automated Backend Workflow</CardTitle>
+  </CardHeader>
+  <CardContent>
+   <Image
+      src="/order-flow.png"
+      alt="Order flow  diagram"
+      width={960}
+      height={540}
+      className="border border-gray-300 mx-auto mb-6 object-contain max-h-[600px] bg-[rgb(251,249,247)]"
+    />
+   Order Validation and Creation
+When the order request reaches the server, the NestJS service immediately validates crucial details such as the sales representative and customer records. If any of these entities are missing, the order creation is halted immediately, notifying the user clearly via structured error messages.
+
+Next, the service checks that the payment amount provided by the customer is within acceptable bounds, ensuring the business is protected against erroneous or malicious payment entries.
+
+Inventory Stock Verification
+For each ready-made product in the order, the backend performs a real-time inventory check to validate that sufficient stock is available. This verification is vital to prevent over-selling, a common issue in manual inventory systems:
+
+The service retrieves the latest inventory records for each ready-made product.
+
+If the requested quantity exceeds available stock, the entire transaction is canceled immediately, ensuring data accuracy and preventing inventory mismatches.
+
+Customers are instantly informed about insufficient stock situations, specifying the problematic item and available quantity.
+
+Sales Order & Items Insertion
+After successful validations, the backend securely inserts the order details into the central database (sales_orders table). This record includes critical information such as the customer, salesperson, totals, payment status, and due dates, guaranteeing a single authoritative record for audit and analysis.
+
+Each ordered item—both ready-made and custom—is systematically logged into the sales_order_items table, referencing the created sales order. This table precisely captures the quantity, price, model details, and product specifications, serving as a robust reference point for order fulfillment and customer support.
+
+Custom Measurements Handling
+For custom-made items, the system simultaneously records detailed measurements. These measurements are inserted into the order_item_measurements table, carefully linked to the respective sales order item. This ensures absolute clarity in the production process, significantly reducing errors compared to manual measurement handling.
+
+Inventory Stock Updates
+Upon successful recording of the order, the backend automatically updates inventory stock levels in real-time, directly within the transactional scope:
+
+The quantity ordered for each ready-made product is subtracted from its current stock.
+
+This automatic deduction guarantees consistently accurate inventory records, eliminating the common discrepancies associated with manual Excel-based tracking methods.
+
+Payment Transactions Logging
+If the customer has provided any form of payment at the time of order, the backend records this immediately in the sales_transactions table. This structured logging provides a clear, audit-ready financial trail that facilitates transparent accounting and accurate financial reporting.
+
+PDF Invoice & Receipt Generation
+Finally, the backend automatically generates a professionally formatted PDF invoice and receipt using server-side rendering tools:
+
+The generated PDF includes detailed order summaries, payment information, customer details, and item breakdowns.
+
+PDFs are securely stored in an Amazon S3 bucket, providing persistent, reliable storage accessible for future reference or compliance audits.
+
+Customers can easily retrieve their receipts and invoices, enhancing transparency and trust.
+
+WhatsApp & Notification Automation
+In parallel, the system integrates seamlessly with WhatsApp via automated messaging (using a tool like Twilio or similar APIs):
+
+Immediately after order placement, the customer receives an instant WhatsApp notification with the receipt and invoice details.
+
+Admin users receive automatic WhatsApp or email updates about new sales orders, enhancing operational awareness and enabling proactive management.
+
+Error Handling & Data Integrity
+The entire process from validation, insertion, inventory updates, to notification dispatch is enclosed within a database transaction. This design choice ensures:
+
+Complete rollback of all changes if any single step fails, maintaining strict data consistency.
+
+Reliable, atomic operations prevent scenarios where partial data insertion could lead to confusion or compliance issues, a significant improvement over manual or Excel-based approaches prone to human error.
+
+  </CardContent>
+</Card>
+
+## 📈 Comparison: POS Automation vs. Manual Excel Entry
+
+<Card className="mb-12">
+  <CardHeader>
+    <CardTitle>Comparative Analysis: Automated POS vs. Manual Excel Entry</CardTitle>
+  </CardHeader>
+  <CardContent>
+  Compared to traditional manual entry using Excel sheets, this automated backend service logic significantly enhances operational effectiveness and reduces business risks:
+
+Error Prevention: Automated validations and immediate feedback virtually eliminate data entry mistakes common in manual processes.
+
+Real-Time Inventory: Stock levels remain consistently accurate, preventing costly overselling or stockouts.
+
+Efficiency & Speed: Transactional automation drastically reduces the processing time per order from hours to seconds.
+
+Auditability: Every operation leaves a precise, easily traceable record, simplifying audits and ensuring compliance with financial regulations.
+
+Customer Experience: Instant notifications and accurate documentation improve customer satisfaction and brand reputation.
+
+  </CardContent>
+</Card>
