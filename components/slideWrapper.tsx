@@ -50,11 +50,11 @@ export default function SlideWrapper({
   const handleMouseMove = () => {
     setShowControls(true);
     if (mouseTimer) clearTimeout(mouseTimer);
-    
+
     const timer = setTimeout(() => {
       if (isFullscreen) setShowControls(false);
     }, 3000);
-    
+
     setMouseTimer(timer);
   };
 
@@ -93,7 +93,7 @@ export default function SlideWrapper({
     };
   }, [index, total, isFullscreen, mouseTimer]);
 
- 
+
 
   const progressPercentage = Math.round(((index + 1) / total) * 100);
 
@@ -118,8 +118,9 @@ export default function SlideWrapper({
                   Slide {String(index + 1).padStart(2, '0')}
                 </span>
               </div>
-              
-              <Image src={"/logo.jpeg"} alt='logo' height={200} width={200} className='h-10 w-auto object-contain'/>
+
+              // brand name
+              <h1 className='text-2xl font-serif font-semibold'>Al Nubras</h1>
               <div className="flex items-center space-x-6">
                 <span className="text-xs text-slate-400 font-mono tracking-wider">
                   {index + 1} / {total}
@@ -130,18 +131,18 @@ export default function SlideWrapper({
                   onClick={toggleFullscreen}
                   className="h-8 w-8 rounded-lg bg-white/50 backdrop-blur-sm border border-slate-200 hover:bg-white hover:border-slate-300 transition-all duration-200"
                 >
-                  {isFullscreen ? 
-                    <Minimize className="w-4 h-4 text-slate-600" /> : 
+                  {isFullscreen ?
+                    <Minimize className="w-4 h-4 text-slate-600" /> :
                     <Maximize className="w-4 h-4 text-slate-600" />
                   }
                 </Button>
               </div>
             </div>
-            
+
             {/* Ultra-minimal progress bar */}
             <div className="relative">
               <div className="h-[4px] bg-slate-200 w-full"></div>
-              <div 
+              <div
                 className="absolute top-0 left-0 h-[4px] bg-gradient-to-r from-slate-600 to-slate-900 transition-all duration-1000 ease-out"
                 style={{ width: `${progressPercentage}%` }}
               ></div>
@@ -164,7 +165,7 @@ export default function SlideWrapper({
                   <div className="w-24 h-[1px] bg-slate-400 mx-auto"></div>
                 </div>
               )}
-              
+
               {/* MDX Content - Centered and spacious */}
               <div className="prose prose-xl prose-slate max-w-none ">
                 <div className="space-y-8">
@@ -191,7 +192,7 @@ export default function SlideWrapper({
               >
                 <ChevronLeft className="w-6 h-6 text-slate-600 group-hover:text-slate-900 transition-colors duration-200" />
               </Button>
-              
+
               {/* Slide indicators */}
               <div className="flex space-x-3">
                 {Array.from({ length: total }, (_, i) => (
@@ -201,18 +202,17 @@ export default function SlideWrapper({
                       const key = String(i + 1).padStart(2, '0');
                       router.push(`/slides/${key}`);
                     }}
-                    className={`transition-all duration-500 rounded-full ${
-                      i === index 
-                        ? 'w-8 h-2 bg-slate-900' 
-                        : i < index 
-                          ? 'w-2 h-2 bg-slate-500 hover:bg-slate-600' 
-                          : 'w-2 h-2 bg-slate-300 hover:bg-slate-400'
-                    }`}
+                    className={`transition-all duration-500 rounded-full ${i === index
+                      ? 'w-8 h-2 bg-slate-900'
+                      : i < index
+                        ? 'w-2 h-2 bg-slate-500 hover:bg-slate-600'
+                        : 'w-2 h-2 bg-slate-300 hover:bg-slate-400'
+                      }`}
                     aria-label={`Go to slide ${i + 1}`}
                   />
                 ))}
               </div>
-              
+
               {/* Next button */}
               <Button
                 variant="ghost"
@@ -224,7 +224,7 @@ export default function SlideWrapper({
                 <ChevronRight className="w-6 h-6 text-slate-600 group-hover:text-slate-900 transition-colors duration-200" />
               </Button>
             </div>
-            
+
             {/* Keyboard shortcuts hint */}
             {!isFullscreen && (
               <div className="text-center mt-6">
